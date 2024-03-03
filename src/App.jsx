@@ -14,6 +14,8 @@ import { useContext, useEffect } from 'react';
 import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes';
 import ProductDetails from './components/ProductDetails/ProductDetails';
 import CheckOut from './components/CheckOut/CheckOut';
+import SubCategory from './components/SubCategory/SubCategory';
+import ForgetPasswordPage from './components/ForgetPasswordPage/ForgetPasswordPage';
 const routes = createBrowserRouter([
   {
     path: "",
@@ -86,6 +88,18 @@ const routes = createBrowserRouter([
             <CheckOut></CheckOut>
           </ProtectedRoutes>
         ),
+      },
+      {
+        path: "subcategory",
+        element: (
+          <ProtectedRoutes>
+            <SubCategory></SubCategory>
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "/forget",
+        element: <ForgetPasswordPage></ForgetPasswordPage>,
       },
     ],
   },

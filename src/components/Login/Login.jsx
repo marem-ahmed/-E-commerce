@@ -2,9 +2,10 @@
  import { useFormik } from "formik";
  import * as Yup from "yup";
  import axios from "axios";
- import { useNavigate } from "react-router-dom";
+ import { Link, useNavigate } from "react-router-dom";
 import { TokenContext } from "../../Context/Token";
 import { Helmet } from "react-helmet";
+import ForgetPasswordPage from "../ForgetPasswordPage/ForgetPasswordPage";
 
  export default function Login() {
 
@@ -12,7 +13,10 @@ import { Helmet } from "react-helmet";
   const [isLoading, setisLoading] = useState(false);
   let { settoken } = useContext(TokenContext);
   const navigate = useNavigate();
-
+function forGetPass(){
+  navigate('/forgetpasswordpage')
+  console.log('mmmmm');
+}
   async function callLogin(requestLogin) {
     seterrMessage("");
     setisLoading(true);
@@ -90,13 +94,19 @@ import { Helmet } from "react-helmet";
                </div>
              ) : null}
            </div>
-
-           <button
-             type="submit"
-             className="btn bg-main text-white d-block ms-auto"
-           >
-             {isLoading ? <i className="fa fa-spinner fa-spin"></i> : "Submit"}
-           </button>
+           <div className="d-flex justify-content-between">
+             <Link to={"/forget"}>forget your password?</Link>
+             <button
+               type="submit"
+               className="btn bg-main text-white d-block ms-auto"
+             >
+               {isLoading ? (
+                 <i className="fa fa-spinner fa-spin"></i>
+               ) : (
+                 "Submit"
+               )}
+             </button>
+           </div>
          </form>
        </div>
      </>
