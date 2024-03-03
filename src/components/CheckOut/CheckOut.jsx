@@ -6,6 +6,7 @@ import { CartContext } from '../../Context/cart';
 import { Helmet } from "react-helmet";
 
 export default function CheckOut() {
+  
      <Helmet>
        <title>CheckOut</title>
      </Helmet>;

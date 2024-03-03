@@ -1,9 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from '../../Assets/images/freshcart-logo.svg'
 import { TokenContext } from "../../Context/Token";
-
+import { CartContext } from "../../Context/cart";
+import './NavBar.module.css'
 export default function NavBar() {
+  let { setnumOfItems, numOfItems } = useContext(CartContext);
+   const [cartDetails, setcartDetails] = useState({});
+   let { getCartDetails} =useContext(CartContext);
+ async function getCartProducts() {
+   let { data } = await getCartDetails();
+   setcartDetails(data);
+ }
+ useEffect(() => {
+   getCartProducts();
+ }, []);
     let {token,settoken} = useContext(TokenContext);
     let navigate=useNavigate()
     function logOut(){
@@ -135,10 +146,16 @@ export default function NavBar() {
                       aria-current="page"
                       to={"cart"}
                     >
-                      <i className="fa-solid fa-cart-shopping"></i>
+                      <i className="fa-solid fa-cart-shopping fs-3 position-relative shoping">
+                        {cartDetails?.data ? (
+                          <span className="bg-main badge translate-middle-y translate-middle-x position-absolute fs-6  rounded-3 ">
+                            {numOfItems}
+                          </span>
+                        ) : null}
+                      </i>
                     </Link>
                   </li>
-                  <li className="nav-item">
+                  <li className="nav-item ms-3">
                     <button
                       className="nav-link active"
                       aria-current="page"

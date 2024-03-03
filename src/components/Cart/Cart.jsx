@@ -4,30 +4,34 @@ import { useQuery } from 'react-query';
 import CheckOut from './../CheckOut/CheckOut';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import Loader from '../Loader/Loader';
 
 export default function Cart() {
+  
 
-
-  const [cartDetails,setcartDetails]=useState({})
- let { getCartDetails, removeItemfromCart, updateItemfromCart } =
-   useContext(CartContext);
+const [cartDetails,setcartDetails]=useState({})
+let { getCartDetails, removeItemfromCart, updateItemfromCart, setnumOfItems } =
+  useContext(CartContext);
  async function getCartProducts(){
-  let {data}=await getCartDetails()
-  setcartDetails(data)
-  console.log(data);
+let {data}=await getCartDetails()
+setcartDetails(data)
+setnumOfItems(data.numOfCartItems);
+  
  }
  async function removeItem(id){
  let {data}= await removeItemfromCart(id)
  setcartDetails(data)
+setnumOfItems(data.numOfCartItems);
+
 }
  async function updateItem(id,count) {
    let { data } = await updateItemfromCart(id, count);
    setcartDetails(data);
+
  }
    useEffect(
      () =>{ getCartProducts()},
-
-     []
+[]
    );
   return (
     <>
@@ -85,7 +89,7 @@ export default function Cart() {
             CheckOut
           </Link>
         </div>
-      ) : null}
+      ) : <Loader/>}
     </>
   );
 
