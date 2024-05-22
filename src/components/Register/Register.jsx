@@ -132,7 +132,7 @@ export default function Register  () {
              {registerForm.errors.rePassword &&
              registerForm.touched.rePassword ? (
                <div className=" p-2 alert alert-danger my-2">
-                 {registerForm.errors.email}
+                 {registerForm.errors.rePassword}
                </div>
              ) : null}
            </div>
@@ -149,7 +149,7 @@ export default function Register  () {
              />
              {registerForm.errors.phone && registerForm.touched.phone ? (
                <div className="p-2 alert alert-danger my-2">
-                 {registerForm.errors.email}
+                 {registerForm.errors.phone}
                </div>
              ) : null}
            </div>
