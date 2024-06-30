@@ -1,33 +1,25 @@
-import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
-import { useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
 import { CartContext } from "../../Context/cart";
 import toast, { Toaster } from "react-hot-toast";
-import Loader from '../Loader/Loader'
-
-
+import Loader from "../Loader/Loader";
 
 export default function Products() {
-  let {numOfItems, setnumOfItems } = useContext(CartContext);
-   const [isClicked, setIsClicked] = useState(false);
-   const originalColor = "#aaa9a9";
-   const clickedColor = "#ff0000";
-   const currentColor = isClicked ? clickedColor : originalColor;
+  let { numOfItems, setnumOfItems } = useContext(CartContext);
+  const [favoriteId, setFavoriteId] = useState(null);
 
-    const myStyles = {
-      color: currentColor,
-    };
+  const handleFavorite = (id) => {
+    setFavoriteId(id);
+  };
 
-  function convertColorHeart() {
-    setIsClicked(!isClicked);
-  }
   let { addToCart } = useContext(CartContext);
   async function addCart(id) {
     let res = await addToCart(id);
     if (res.data.status === "success") {
       toast.success("Product added successfully");
-          setnumOfItems(res.data.numOfCartItems);
+      setnumOfItems(res.data.numOfCartItems);
 
     } else {
       toast.error("Product did not added ");
@@ -63,15 +55,17 @@ export default function Products() {
                     </div>
                   </Link>
                   <i
-                    onClick={convertColorHeart}
                     className="fa-solid fa-heart cursor-pointer fs-3 "
-                    style={myStyles}
+                    onClick={() => handleFavorite(ele.id)}
+                    style={{
+                      color: favoriteId === ele.id ? "red" : "grey",
+                    }}
                   ></i>
                   <button
                     className="btn bg-main text-white w-100"
                     onClick={() => addCart(ele.id)}
                   >
-                    + Add to cart
+                    + add to cart
                   </button>
                 </div>
               );

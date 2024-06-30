@@ -44,8 +44,10 @@ const [cartId, setcartId] = useState(null);
 const [numOfItems,setnumOfItems]=useState(null)
  async function getAnitialCart(){
   let {data}=await getCartDetails()
-  setnumOfItems(data.numOfCartItems)
+  if(data){
+    setnumOfItems(data.numOfCartItems)
   setcartId(data.data._id)
+  }
   }
   useEffect(()=>
   getAnitialCart()

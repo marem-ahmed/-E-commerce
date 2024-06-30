@@ -12,8 +12,8 @@ export default function ForgetPasswordPage() {
     }
   );
 console.log(data);
-if(data.message==='statusMsg'){
-navigate('/login')
+if (data.message === "success") {
+  navigate("/login");
 }
     }
     let forgetForm = useFormik({

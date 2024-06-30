@@ -24,8 +24,8 @@ export default function MainSlider() {
             </Slider>
           </div>
           <div className="col-md-4">
-            <img src={img2} alt="img2" className='w-100' />
-            <img src={img3} alt="img1" className='w-100' />
+            <img src={img2} alt="img2" className="w-100 resize-img" />
+            <img src={img3} alt="img1" className="w-100 resize-img" />
           </div>
         </div>
       </div>

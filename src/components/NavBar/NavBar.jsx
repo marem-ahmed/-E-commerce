@@ -25,7 +25,7 @@ export default function NavBar() {
     }
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <div className="container">
           <Link className="navbar-brand" to={"home"}>
             <img src={logo} alt="logo" />
