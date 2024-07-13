@@ -18,6 +18,7 @@ import SubCategory from './components/SubCategory/SubCategory';
 import ForgetPasswordPage from './components/ForgetPasswordPage/ForgetPasswordPage';
 import VerfiyPassword from './components/VerfiyCode/VerfiyCode'
 import ResetPassword from './components/ResetPassword/ResetPassword'
+import WishList from './components/WishList/WishList'
 const routes = createBrowserRouter([
   {
     path: "",
@@ -96,6 +97,14 @@ const routes = createBrowserRouter([
         element: (
           <ProtectedRoutes>
             <SubCategory></SubCategory>
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "wishlist",
+        element: (
+          <ProtectedRoutes>
+            <WishList></WishList>
           </ProtectedRoutes>
         ),
       },

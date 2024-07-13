@@ -89,6 +89,15 @@ export default function NavBar() {
                     Brands
                   </Link>
                 </li>
+                <li className="nav-item">
+                  <Link
+                    className="nav-link active"
+                    aria-current="page"
+                    to={"wishlist"}
+                  >
+                    WhisList
+                  </Link>
+                </li>
               </ul>
             ) : null}
 

@@ -5,18 +5,26 @@ import { Link } from "react-router-dom";
 import { CartContext } from "../../Context/cart";
 import toast, { Toaster } from "react-hot-toast";
 import Loader from "../Loader/Loader";
+import { TokenContext } from "../../Context/Token";
+import { wishListContext} from './../../Context/wishlist';
 
 export default function Products() {
   let { numOfItems, setnumOfItems } = useContext(CartContext);
-  const [favoriteId, setFavoriteId] = useState(null);
+    let { settoken } = useContext(TokenContext);
+    const [wishlistDetails, setWishListDetails] = useState({});
 
-  const handleFavorite = (id) => {
-    setFavoriteId(id);
-  };
+let { addProductToWishList } = useContext(wishListContext);
+let { addToCart } = useContext(CartContext);
+console.log(addToCart);
+  async function addtoWishList(id) {
+    let result= await addProductToWishList(id)
+    setWishListDetails(result);
+    toast.success("Product added to wishList successfully");
 
-  let { addToCart } = useContext(CartContext);
+ }
   async function addCart(id) {
     let res = await addToCart(id);
+
     if (res.data.status === "success") {
       toast.success("Product added successfully");
       setnumOfItems(res.data.numOfCartItems);
@@ -28,7 +36,9 @@ export default function Products() {
   function getAllProduct() {
     return axios.get("https:ecommerce.routemisr.com/api/v1/products");
   }
+
   let { data, isLoading } = useQuery("products", getAllProduct);
+
 
   return (
     <>
@@ -54,11 +64,11 @@ export default function Products() {
                       </div>
                     </div>
                   </Link>
+
                   <i
-                    className="fa-solid fa-heart cursor-pointer fs-3 "
-                    onClick={() => handleFavorite(ele.id)}
+                    className="fa-solid fa-heart cursor-pointer fs-3  "
+                      onClick={() => addtoWishList(ele.id)}
                     style={{
-                      color: favoriteId === ele.id ? "red" : "grey",
                     }}
                   ></i>
                   <button
@@ -70,6 +80,7 @@ export default function Products() {
                 </div>
               );
             })}
+
           </div>
         </div>
       )}
