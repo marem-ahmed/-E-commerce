@@ -5,7 +5,7 @@ import { TokenContext } from "../../Context/Token";
 import { CartContext } from "../../Context/cart";
 import './NavBar.module.css'
 export default function NavBar() {
-  let { setnumOfItems, numOfItems } = useContext(CartContext);
+  let { numOfItems, setnumOfItems } = useContext(CartContext);
    const [cartDetails, setcartDetails] = useState({});
    let { getCartDetails} =useContext(CartContext);
  async function getCartProducts() {

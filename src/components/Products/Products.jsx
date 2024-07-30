@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { json, Link } from "react-router-dom";
 import { CartContext } from "../../Context/cart";
 import toast, { Toaster } from "react-hot-toast";
 import Loader from "../Loader/Loader";
@@ -11,17 +11,24 @@ import { wishListContext} from './../../Context/wishlist';
 export default function Products() {
   let { numOfItems, setnumOfItems } = useContext(CartContext);
     let { settoken } = useContext(TokenContext);
-    const [wishlistDetails, setWishListDetails] = useState({});
+      let [isFavorite, setIsFavorite] = useState(false);
 
-let { addProductToWishList } = useContext(wishListContext);
+let { addProductToWishList, removeFromWishList, wishlistDetails} =
+  useContext(wishListContext);
+  console.log(wishlistDetails);
 let { addToCart } = useContext(CartContext);
-console.log(addToCart);
-  async function addtoWishList(id) {
-    let result= await addProductToWishList(id)
-    setWishListDetails(result);
-    toast.success("Product added to wishList successfully");
+const toggleFavorite=async(id)=>{
+  if(wishlistDetails?.includes(id)){
+    const data = await removeFromWishList(id);
+        toast.error("Product removed from wishlist successfully");
+  }else{
+    const response = await addProductToWishList(id);
+        toast.success("Product added to wishlist successfully");
+  }
+}
 
- }
+
+ 
   async function addCart(id) {
     let res = await addToCart(id);
 
@@ -37,7 +44,7 @@ console.log(addToCart);
     return axios.get("https:ecommerce.routemisr.com/api/v1/products");
   }
 
-  let { data, isLoading } = useQuery("products", getAllProduct);
+  let { data, isLoading} = useQuery("products", getAllProduct);
 
 
   return (
@@ -64,11 +71,14 @@ console.log(addToCart);
                       </div>
                     </div>
                   </Link>
-
                   <i
                     className="fa-solid fa-heart cursor-pointer fs-3  "
-                      onClick={() => addtoWishList(ele.id)}
+                    onClick={() => toggleFavorite(ele.id)}
+                    isFavorite={wishlistDetails?.includes(ele.id)}
                     style={{
+                      color: wishlistDetails?.includes(ele.id)
+                        ? "red"
+                        : "grey",
                     }}
                   ></i>
                   <button

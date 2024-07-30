@@ -9,8 +9,7 @@ import { CartContext } from '../../Context/cart';
 export default function WishList() {
   let { numOfItems, setnumOfItems } = useContext(CartContext);
 
-    const [wishlistDetails,setWishListDetails]=useState({})
-    const { getAllProductWishList, removeFromWishList } =
+    const { getAllProductWishList, removeFromWishList, wishlistDetails } =
       useContext(wishListContext);
 
 
@@ -25,14 +24,11 @@ export default function WishList() {
         }
       }
      async function displayWishList(){
-         const { data } = await getAllProductWishList()
-         if(data){
-            setWishListDetails(data)
-         }
+         const  data  = await getAllProductWishList()
+        
      }
      async function deleteItemFromWishList(id){
-     const{data}=await removeFromWishList(id)
-                 setWishListDetails(data);
+     const data=await removeFromWishList(id)
 
 
      }
@@ -46,12 +42,12 @@ export default function WishList() {
         <Helmet>
           <title>My WishList:</title>
         </Helmet>
-        {wishlistDetails?.data ? (
+        {wishlistDetails ? (
           <div className="container bg-main-light mt-5 p-4">
             <h2>
               WishList: <span className='text-main fw-bold'>{wishlistDetails.count}</span>
             </h2>
-            {wishlistDetails.data.map((ele) => {
+            {wishlistDetails.map((ele) => {
               return (
                 <div className="row my-3 border-bottom" key={ele.id}>
                   <div key={ele._id} className="col-md-2 ">
@@ -67,7 +63,7 @@ export default function WishList() {
                       </div>
                       <button
                         className="btn btn-outline-danger mt-4"
-                        onClick={() => deleteItemFromWishList(ele._id)}
+                        onClick={() => deleteItemFromWishList(ele.id)}
                       >
                         <i className="fas fa-trash pe-2 "></i>Remove
                       </button>
