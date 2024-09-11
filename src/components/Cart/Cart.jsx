@@ -71,7 +71,7 @@ setnumOfItems(data.numOfCartItems);
                       }
                       className="btn btn-outline-success"
                     >
-                      -
+                      +
                     </button>
                     <span className="mx-2">{ele.count}</span>
                     <button
@@ -80,7 +80,7 @@ setnumOfItems(data.numOfCartItems);
                       }
                       className=" btn btn-outline-success"
                     >
-                      +
+                      -
                     </button>
                   </div>
                 </div>
