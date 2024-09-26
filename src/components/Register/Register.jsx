@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
   import { Helmet } from "react-helmet";
+import { TokenContext } from "../../Context/Token";
 
 export default function Register  () {
- 
+   let { settoken } = useContext(TokenContext);
+
   const [errMessage,seterrMessage]=useState(false)
   const[isLoading,setisLoading]=useState(false)
     const navigate = useNavigate();
@@ -24,6 +26,8 @@ export default function Register  () {
         seterrMessage(err.response.data.message)}
       );
      if(data.message==='success'){
+      localStorage.setItem("userToken", data.token);
+      settoken(data.token);
        navigate('/home')
      }
   }
@@ -104,7 +108,7 @@ export default function Register  () {
            <div className="form-group mb-2">
              <label htmlFor="password">password</label>
              <input
-               type="text"
+               type="password"
                className="form-control"
                name="password"
                id="password"

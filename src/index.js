@@ -11,14 +11,16 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import TokenContextProvider, { TokenContext } from './Context/Token';
+import WishContextProvider from './Context/wishlist';
+import TokenContextProvider from './Context/Token';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import CartContextProvider from './Context/cart';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 let query=new QueryClient()
 root.render(
-  <CartContextProvider>
+<CartContextProvider>
+  <WishContextProvider>
     <QueryClientProvider client={query}>
   <React.StrictMode>
     <TokenContextProvider>
@@ -26,6 +28,7 @@ root.render(
     </TokenContextProvider>
   </React.StrictMode>
   </QueryClientProvider>
+  </WishContextProvider>
   </CartContextProvider>
   
 );

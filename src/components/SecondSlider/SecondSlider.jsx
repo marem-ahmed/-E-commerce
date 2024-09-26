@@ -1,11 +1,15 @@
 import React from 'react'
 import Slider from 'react-slick';
-import './SecondSlider.module.css'
 import img1 from '../../Assets/images/catSlider1.jpeg'
 import img2 from "../../Assets/images/catSlider2.jpeg";
 import img3 from "../../Assets/images/catSlider3.jpeg";
 import img5 from "../../Assets/images/catSlider5.jpeg";
 import img6 from "../../Assets/images/catSlider6.jpeg";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "./SecondSlider.module.css";
+
 export default function SecondSlider() {
       let settings = {
         dots: true,
@@ -16,7 +20,7 @@ export default function SecondSlider() {
       };
   return (
     <>
-      <div className="container my-5">
+      <div className="container secondSlider my-5">
         <h2>Shop Popular Categories</h2>
         <Slider {...settings} className='my-3'>
           <img src={img1} alt="catSlider1"  />

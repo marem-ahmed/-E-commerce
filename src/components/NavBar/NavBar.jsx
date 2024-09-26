@@ -5,7 +5,7 @@ import { TokenContext } from "../../Context/Token";
 import { CartContext } from "../../Context/cart";
 import './NavBar.module.css'
 export default function NavBar() {
-  let { setnumOfItems, numOfItems } = useContext(CartContext);
+  let { numOfItems, setnumOfItems } = useContext(CartContext);
    const [cartDetails, setcartDetails] = useState({});
    let { getCartDetails} =useContext(CartContext);
  async function getCartProducts() {
@@ -25,7 +25,7 @@ export default function NavBar() {
     }
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <div className="container">
           <Link className="navbar-brand" to={"home"}>
             <img src={logo} alt="logo" />
@@ -87,6 +87,15 @@ export default function NavBar() {
                     to={"brands"}
                   >
                     Brands
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    className="nav-link active"
+                    aria-current="page"
+                    to={"wishlist"}
+                  >
+                    WhisList
                   </Link>
                 </li>
               </ul>

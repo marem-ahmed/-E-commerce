@@ -14,8 +14,10 @@ let { getCartDetails, removeItemfromCart, updateItemfromCart, setnumOfItems } =
   useContext(CartContext);
  async function getCartProducts(){
 let {data}=await getCartDetails()
-setcartDetails(data)
-setnumOfItems(data.numOfCartItems);
+if(data){
+  setcartDetails(data);
+  setnumOfItems(data.numOfCartItems);
+}
   
  }
  async function removeItem(id){
@@ -59,7 +61,7 @@ setnumOfItems(data.numOfCartItems);
                       onClick={() => removeItem(ele.product._id)}
                       className="btn btn-outline-danger mb-3"
                     >
-                      <i className="fas fa-trash text-main pe-2 "></i>Remove
+                      <i className="fas fa-trash pe-2 "></i>Remove
                     </button>
                   </div>
                   <div className="d-flex align-items-center ">
