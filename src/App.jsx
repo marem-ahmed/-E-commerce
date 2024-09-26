@@ -67,9 +67,7 @@ const routes = createBrowserRouter([
       {
         path: "products",
         element: (
-          <ProtectedRoutes>
             <Products></Products>
-          </ProtectedRoutes>
         ),
       },
       {

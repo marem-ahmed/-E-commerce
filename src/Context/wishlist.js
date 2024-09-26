@@ -66,9 +66,5 @@ function removeFromWishList(id){
     >
       {props.children}
     </wishListContext.Provider>
-  
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> master
+

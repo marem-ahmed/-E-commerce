@@ -1,33 +1,38 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from '../../Assets/images/freshcart-logo.svg'
+import logo from "../../Assets/images/freshcart-logo.svg";
 import { TokenContext } from "../../Context/Token";
 import { CartContext } from "../../Context/cart";
-import './NavBar.module.css'
-export default function NavBar() {
-  let { numOfItems, setnumOfItems } = useContext(CartContext);
-   const [cartDetails, setcartDetails] = useState({});
-   let { getCartDetails} =useContext(CartContext);
- async function getCartProducts() {
-   let { data } = await getCartDetails();
-   setcartDetails(data);
- }
- useEffect(() => {
-   getCartProducts();
- }, []);
-    let {token,settoken} = useContext(TokenContext);
-    let navigate=useNavigate()
-    function logOut(){
-      localStorage.removeItem('userToken')
-      settoken(null);
-      navigate('./login')
+import "./NavBar.module.css";
 
-    }
+export default function NavBar() {
+  let { numOfItems } = useContext(CartContext);
+  const [cartDetails, setCartDetails] = useState({});
+  let { getCartDetails } = useContext(CartContext);
+
+  async function getCartProducts() {
+    let { data } = await getCartDetails();
+    setCartDetails(data);
+  }
+
+  useEffect(() => {
+    getCartProducts();
+  }, []);
+
+  let { token, settoken, userInfo } = useContext(TokenContext);
+  let navigate = useNavigate();
+
+  function logOut() {
+    localStorage.removeItem("userToken");
+    settoken(null);
+    navigate("/login");
+  }
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <div className="container">
-          <Link className="navbar-brand" to={"home"}>
+          <Link className="navbar-brand" to={"/home"}>
             <img src={logo} alt="logo" />
           </Link>
           <button
@@ -43,121 +48,80 @@ export default function NavBar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             {token ? (
-              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                <li className="nav-item">
-                  <Link
-                    className="nav-link active"
-                    aria-current="page"
-                    to={"home"}
-                  >
-                    Home
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    className="nav-link active"
-                    aria-current="page"
-                    to={"cart"}
-                  >
-                    Cart
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    className="nav-link active"
-                    aria-current="page"
-                    to={"products"}
-                  >
-                    Products
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    className="nav-link active"
-                    aria-current="page"
-                    to={"categories"}
-                  >
-                    Categories
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    className="nav-link active"
-                    aria-current="page"
-                    to={"brands"}
-                  >
-                    Brands
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    className="nav-link active"
-                    aria-current="page"
-                    to={"wishlist"}
-                  >
-                    WhisList
-                  </Link>
-                </li>
-              </ul>
-            ) : null}
+              <>
+                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link active"
+                      aria-current="page"
+                      to={"/home"}
+                    >
+                      Home
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link active"
+                      aria-current="page"
+                      to={"/cart"}
+                    >
+                      Cart
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link active"
+                      aria-current="page"
+                      to={"/products"}
+                    >
+                      Products
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link active"
+                      aria-current="page"
+                      to={"/categories"}
+                    >
+                      Categories
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link active"
+                      aria-current="page"
+                      to={"/brands"}
+                    >
+                      Brands
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link active"
+                      aria-current="page"
+                      to={"/wishlist"}
+                    >
+                      Wishlist
+                    </Link>
+                  </li>
+                </ul>
 
-            <ul className="ms-auto navbar-nav mb-2 mb-lg-0">
-              {token ? (
-                <>
-                  <li className="nav-item">
-                    <Link
-                      className="nav-link active"
-                      aria-current="page"
-                      to={""}
-                    >
-                      <i className="fa-brands fa-instagram"></i>
-                    </Link>
+                {/* User info display */}
+                <ul className="ms-auto navbar-nav mb-2 mb-lg-0">
+                  <li className="nav-item me-3">
+                    <span className="nav-link active">
+                      Hello, {userInfo?.name || "User"}
+                    </span>
                   </li>
                   <li className="nav-item">
                     <Link
                       className="nav-link active"
                       aria-current="page"
-                      to={""}
-                    >
-                      <i className="fa-brands fa-facebook"></i>{" "}
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link
-                      className="nav-link active"
-                      aria-current="page"
-                      to={""}
-                    >
-                      <i className="fa-brands fa-tiktok"></i>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link
-                      className="nav-link active"
-                      aria-current="page"
-                      to={""}
-                    >
-                      <i className="fa-brands fa-twitter"></i>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link
-                      className="nav-link active"
-                      aria-current="page"
-                      to={""}
-                    >
-                      <i className="fa-brands fa-linkedin"></i>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link
-                      className="nav-link active"
-                      aria-current="page"
-                      to={"cart"}
+                      to={"/cart"}
                     >
                       <i className="fa-solid fa-cart-shopping fs-3 position-relative shoping">
                         {cartDetails?.data ? (
-                          <span className="bg-main badge translate-middle-y translate-middle-x position-absolute fs-6  rounded-3 ">
+                          <span className="bg-main badge translate-middle-y translate-middle-x position-absolute fs-6 rounded-3">
                             {numOfItems}
                           </span>
                         ) : null}
@@ -173,30 +137,30 @@ export default function NavBar() {
                       LogOut
                     </button>
                   </li>
-                </>
-              ) : (
-                <>
-                  <li className="nav-item">
-                    <Link
-                      className="nav-link active"
-                      aria-current="page"
-                      to={"register"}
-                    >
-                      Register
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link
-                      className="nav-link active"
-                      aria-current="page"
-                      to={"login"}
-                    >
-                      login
-                    </Link>
-                  </li>
-                </>
-              )}
-            </ul>
+                </ul>
+              </>
+            ) : (
+              <ul className="ms-auto navbar-nav mb-2 mb-lg-0">
+                <li className="nav-item">
+                  <Link
+                    className="nav-link active"
+                    aria-current="page"
+                    to={"/register"}
+                  >
+                    Register
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    className="nav-link active"
+                    aria-current="page"
+                    to={"/login"}
+                  >
+                    Login
+                  </Link>
+                </li>
+              </ul>
+            )}
           </div>
         </div>
       </nav>
