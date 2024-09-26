@@ -1,49 +1,48 @@
-import { createBrowserRouter ,RouterProvider } from 'react-router-dom';
-import './App.css';
-import LayOut from './components/LayOut/LayOut';
-import Home from './components/Home/Home';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./App.css";
+import LayOut from "./components/LayOut/LayOut";
+import Home from "./components/Home/Home"; // Import Home component
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
 import Categories from "./components/Categories/Categories";
-import Brands from './components/Brands/Brands';
+import Brands from "./components/Brands/Brands";
 import Cart from "./components/Cart/Cart";
-import Products from './components/Products/Products'
+import Products from "./components/Products/Products";
 import NotFound from "./components/NotFound/NotFound";
-import TokenContextProvider, { TokenContext } from './Context/Token';
-import { useContext, useEffect } from 'react';
-import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes';
-import ProductDetails from './components/ProductDetails/ProductDetails';
-import CheckOut from './components/CheckOut/CheckOut';
-import SubCategory from './components/SubCategory/SubCategory';
-import ForgetPasswordPage from './components/ForgetPasswordPage/ForgetPasswordPage';
-import VerfiyPassword from './components/VerfiyCode/VerfiyCode'
-import ResetPassword from './components/ResetPassword/ResetPassword'
-import WishList from './components/WishList/WishList'
+import TokenContextProvider, { TokenContext } from "./Context/Token";
+import { useContext, useEffect } from "react";
+import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
+import ProductDetails from "./components/ProductDetails/ProductDetails";
+import CheckOut from "./components/CheckOut/CheckOut";
+import SubCategory from "./components/SubCategory/SubCategory";
+import ForgetPasswordPage from "./components/ForgetPasswordPage/ForgetPasswordPage";
+import VerfiyPassword from "./components/VerfiyCode/VerfiyCode";
+import ResetPassword from "./components/ResetPassword/ResetPassword";
+import WishList from "./components/WishList/WishList";
+
+// Define the routes
 const routes = createBrowserRouter([
   {
     path: "",
-    element: [<LayOut></LayOut>,
-      <Products></Products>
-    ],
-
+    element: <LayOut />, // Render the Layout
     children: [
       {
-        path: "",
-        element: <Home></Home>,
+        path: "/", // This is the home route
+        element: <Home />, // Render the Home component
       },
       {
         path: "login",
-        element: <Login></Login>,
+        element: <Login />,
       },
       {
         path: "register",
-        element: <Register></Register>,
+        element: <Register />,
       },
       {
         path: "cart",
         element: (
           <ProtectedRoutes>
-            <Cart></Cart>
+            <Cart />
           </ProtectedRoutes>
         ),
       },
@@ -51,7 +50,7 @@ const routes = createBrowserRouter([
         path: "categories",
         element: (
           <ProtectedRoutes>
-            <Categories></Categories>
+            <Categories />
           </ProtectedRoutes>
         ),
       },
@@ -59,23 +58,23 @@ const routes = createBrowserRouter([
         path: "brands",
         element: (
           <ProtectedRoutes>
-            <Brands></Brands>
+            <Brands />
           </ProtectedRoutes>
         ),
       },
       {
         path: "products",
-        element: <Products></Products>,
+        element: <Products />,
       },
       {
         path: "*",
-        element: <NotFound></NotFound>,
+        element: <NotFound />,
       },
       {
         path: "/productDetails/:id",
         element: (
           <ProtectedRoutes>
-            <ProductDetails></ProductDetails>
+            <ProductDetails />
           </ProtectedRoutes>
         ),
       },
@@ -83,7 +82,7 @@ const routes = createBrowserRouter([
         path: "checkout",
         element: (
           <ProtectedRoutes>
-            <CheckOut></CheckOut>
+            <CheckOut />
           </ProtectedRoutes>
         ),
       },
@@ -91,7 +90,7 @@ const routes = createBrowserRouter([
         path: "subcategory",
         element: (
           <ProtectedRoutes>
-            <SubCategory></SubCategory>
+            <SubCategory />
           </ProtectedRoutes>
         ),
       },
@@ -99,37 +98,38 @@ const routes = createBrowserRouter([
         path: "wishlist",
         element: (
           <ProtectedRoutes>
-            <WishList></WishList>
+            <WishList />
           </ProtectedRoutes>
         ),
       },
       {
         path: "/forget",
-        element: <ForgetPasswordPage></ForgetPasswordPage>,
+        element: <ForgetPasswordPage />,
       },
       {
         path: "/verfiy",
-        element: <VerfiyPassword></VerfiyPassword>,
+        element: <VerfiyPassword />,
       },
       {
         path: "/reset",
-        element: <ResetPassword></ResetPassword>,
+        element: <ResetPassword />,
       },
     ],
   },
 ]);
+
 function App() {
-    let { settoken } = useContext(TokenContext);
-useEffect(()=>{
-if(localStorage.getItem('userToken')){
-  settoken(localStorage.getItem('userToken'))
-}
-},[]
-)
+  let { settoken } = useContext(TokenContext);
+
+  useEffect(() => {
+    if (localStorage.getItem("userToken")) {
+      settoken(localStorage.getItem("userToken"));
+    }
+  }, [settoken]);
+
   return (
     <>
-        <RouterProvider router={routes}></RouterProvider>
-      
+      <RouterProvider router={routes} />
     </>
   );
 }
