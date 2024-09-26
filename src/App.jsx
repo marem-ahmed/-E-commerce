@@ -23,7 +23,7 @@ const routes = createBrowserRouter([
   {
     path: "",
     element: [<LayOut></LayOut>,
-      <Home></Home>
+      <Products></Products>
     ],
 
     children: [
