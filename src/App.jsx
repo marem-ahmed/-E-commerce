@@ -22,7 +22,9 @@ import WishList from './components/WishList/WishList'
 const routes = createBrowserRouter([
   {
     path: "",
-    element: <Home></Home>,
+    element: [<LayOut></LayOut>,
+      <Home></Home>
+    ],
 
     children: [
       {
