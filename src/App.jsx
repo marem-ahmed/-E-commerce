@@ -25,11 +25,9 @@ const routes = createBrowserRouter([
     element: <LayOut></LayOut>,
     children: [
       {
-        path: "home",
+        path: "/",
         element: (
-          <ProtectedRoutes>
             <Home></Home>
-          </ProtectedRoutes>
         ),
       },
       {
