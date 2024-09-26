@@ -10,18 +10,7 @@ import Loader from '../Loader/Loader'
 
 export default function Products() {
   let {numOfItems, setnumOfItems } = useContext(CartContext);
-   const [isClicked, setIsClicked] = useState(false);
-   const originalColor = "#aaa9a9";
-   const clickedColor = "#ff0000";
-   const currentColor = isClicked ? clickedColor : originalColor;
-
-    const myStyles = {
-      color: currentColor,
-    };
-
-  function convertColorHeart() {
-    setIsClicked(!isClicked);
-  }
+  
   let { addToCart } = useContext(CartContext);
   async function addCart(id) {
     let res = await addToCart(id);
