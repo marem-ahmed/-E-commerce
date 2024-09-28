@@ -107,12 +107,11 @@ export default function NavBar() {
                 </ul>
 
                 {/* User info display */}
-                <ul className="ms-auto navbar-nav mb-2 mb-lg-0">
-                  <li className="nav-item me-3">
-                    <span className="nav-link active">
-                      Hello, {userInfo?.name || "User"}
+                <ul className="ms-auto navbar-nav mb-2 mb-lg-0 align-items-center">
+                    <span className="mx-3 fs-5 fw-noraml">
+                      Hello <span className="text-main fw-bolder">{token ? userInfo : "User"}</span>
                     </span>
-                  </li>
+                  
                   <li className="nav-item">
                     <Link
                       className="nav-link active"
