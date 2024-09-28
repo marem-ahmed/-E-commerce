@@ -23,7 +23,7 @@ root.render(
   <WishContextProvider>
     <QueryClientProvider client={query}>
   <React.StrictMode>
-    <TokenContextProvider>
+    <TokenContextProvider >
           <App />
     </TokenContextProvider>
   </React.StrictMode>
