@@ -19,12 +19,12 @@ export default function NavBar() {
     getCartProducts();
   }, []);
 
-  let { token, settoken, userInfo } = useContext(TokenContext);
+  let { token, setToken, userInfo } = useContext(TokenContext);
   let navigate = useNavigate();
 
   function logOut() {
     localStorage.removeItem("userToken");
-    settoken(null);
+    setToken(null);
     navigate("/login");
   }
 
@@ -54,7 +54,7 @@ export default function NavBar() {
                     <Link
                       className="nav-link active"
                       aria-current="page"
-                      to={"/home"}
+                      to={"/"}
                     >
                       Home
                     </Link>
