@@ -33,23 +33,29 @@ export default function Products() {
   };
 
   // Add a product to the cart
-  async function addCart(id) {
-    if (!token) {
-      // If user is not logged in, redirect to login page
-      toast.success("Please login to add items to your cart.");
-      navigate("/login");
+  async function handleAddToCart(id) {
+    if (token) {
+      // Proceed to add to cart if token exists
+      const res = await addToCart(id);
+      if (res) {
+        if (res.data.status === "success") {
+          toast.success("Product added successfully");
+          setnumOfItems(res.data.numOfCartItems);
+        } else {
+          toast.error("Product did not add");
+        }
+      }
+    
       return; // Exit function to prevent adding the product
+    } else{
+      // If user is not logged in, redirect to login page
+      toast("please login to add item to cart!", {
+        icon: "⚠️",
+      });
+    }
     }
 
-    // Proceed to add to cart if token exists
-    const res = await addToCart(id);
-    if (res.data.status === "success") {
-      toast.success("Product added successfully");
-      setnumOfItems(res.data.numOfCartItems);
-    } else {
-      toast.error("Product did not add");
-    }
-  }
+    
 
   // Fetch all products using axios
   function getAllProduct() {
@@ -95,7 +101,7 @@ export default function Products() {
                 {/* Add to Cart Button */}
                 <button
                   className="btn bg-main text-white w-100"
-                  onClick={() => addCart(ele.id)}
+                  onClick={() => handleAddToCart(ele.id)}
                 >
                   + add to cart
                 </button>

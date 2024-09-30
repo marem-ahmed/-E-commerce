@@ -3,6 +3,8 @@ import { createContext, useEffect, useState } from "react";
 
 export let CartContext=createContext();
 let headers={token:localStorage.getItem('userToken')};
+console.log(localStorage.getItem('userToken'));
+
 
 function addToCart(id){
   return  axios.post(`https://ecommerce.routemisr.com/api/v1/cart`,
@@ -12,7 +14,15 @@ function addToCart(id){
     headers
     
   }
-  ).then((res)=>res).catch((err)=>err)
+  ).then((res)=>res).catch((err) => {
+  if (err.response && err.response.status === 401) {
+    console.error("Unauthorized - Token might be expired or invalid. Redirecting to login.");
+    // You could redirect the user to the login page here
+  } else {
+    console.error("Error fetching cart details:", err);
+  }
+  return err;
+});
 }
 function getCartDetails(){
     return  axios.get(`https://ecommerce.routemisr.com/api/v1/cart`,
